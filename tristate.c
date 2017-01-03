@@ -164,17 +164,8 @@ int main(void)
     TS_get_totality(&flag, 3, unknown_table);
     assert(flag);
 
-    value = TS_UNKNOWN;
-    TS_set_tri_totality(value, 3, unknown_table);
-    flag = false;
-    TS_get_totality(&flag, 3, unknown_table);
-    assert(flag);
-    flag = true;
-    TS_get_totality(&flag, 3, unknown_table);
-    assert(flag);
-
-    value = TS_FALSE;
-    TS_set_tri_totality(value, 3, unknown_table);
+    TS_set_tri_totality(TS_FALSE, 3, unknown_table);
+    TS_set_tri_totality(TS_UNKNOWN, 3, unknown_table);
     flag = false;
     TS_get_totality(&flag, 3, unknown_table);
     assert(!flag);
@@ -182,8 +173,24 @@ int main(void)
     TS_get_totality(&flag, 3, unknown_table);
     assert(!flag);
 
-    value = TS_TRUE;
-    TS_set_tri_totality(value, 3, unknown_table);
+    TS_set_tri_totality(TS_TRUE, 3, unknown_table);
+    TS_set_tri_totality(TS_UNKNOWN, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+
+    TS_set_tri_totality(TS_FALSE, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+
+    TS_set_tri_totality(TS_TRUE, 3, unknown_table);
     flag = false;
     TS_get_totality(&flag, 3, unknown_table);
     assert(flag);
@@ -207,16 +214,29 @@ int main(void)
     TS_get_totality_tri(&flag, 3, tri_unknown_table);
     assert(flag);
 
+    TS_set_tri_totality_tri(TS_FALSE, 3, tri_unknown_table);
     TS_set_tri_totality_tri(TS_UNKNOWN, 3, tri_unknown_table);
     value = TS_UNKNOWN;
     TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
-    assert(value == TS_UNKNOWN);
+    assert(value == TS_FALSE);
     value = TS_FALSE;
     TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
-    assert(value == TS_UNKNOWN);
+    assert(value == TS_FALSE);
     value = TS_TRUE;
     TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
-    assert(value == TS_UNKNOWN);
+    assert(value == TS_FALSE);
+
+    TS_set_tri_totality_tri(TS_TRUE, 3, tri_unknown_table);
+    TS_set_tri_totality_tri(TS_UNKNOWN, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
 
     TS_set_tri_totality_tri(TS_FALSE, 3, tri_unknown_table);
     value = TS_UNKNOWN;
@@ -230,6 +250,39 @@ int main(void)
     assert(value == TS_FALSE);
 
     TS_set_tri_totality_tri(TS_TRUE, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+
+    TS_reset_tri_totality_tri(TS_UNKNOWN, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+
+    TS_reset_tri_totality_tri(TS_FALSE, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+
+    TS_reset_tri_totality_tri(TS_TRUE, 3, tri_unknown_table);
     value = TS_UNKNOWN;
     TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
     assert(value == TS_TRUE);

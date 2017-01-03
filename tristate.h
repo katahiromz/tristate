@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  4 /* Version 4 */
+#define TRISTATE_H_  5 /* Version 5 */
 
 /****************************************************************************/
 
@@ -74,8 +74,12 @@ void TS_set_tri_totality(TRISTATE  value, size_t count,       bool *values);
 void TS_get_totality_tri(bool *value, size_t count, const TRISTATE *values);
 void TS_set_totality_tri(bool  value, size_t count,       TRISTATE *values);
 
-void TS_get_tri_totality_tri(TRISTATE *value, size_t count, const TRISTATE *values);
-void TS_set_tri_totality_tri(TRISTATE  value, size_t count,       TRISTATE *values);
+void
+TS_get_tri_totality_tri(TRISTATE *value,  size_t count, const TRISTATE *values);
+void
+TS_set_tri_totality_tri(TRISTATE  value,  size_t count,       TRISTATE *values);
+void
+TS_reset_tri_totality_tri(TRISTATE value, size_t count,       TRISTATE *values);
 
 #ifdef __cplusplus
 } // extern "C"
