@@ -212,9 +212,9 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
             return TriState(TS_tri_not(m_value));
         }
 
-        static const TriState T;
-        static const TriState F;
-        static const TriState U;
+        static const TriState T;    /* true value */
+        static const TriState F;    /* false value */
+        static const TriState U;    /* unknown value */
 
     protected:
         TRISTATE m_value;
