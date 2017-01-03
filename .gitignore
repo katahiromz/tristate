@@ -10,6 +10,7 @@ a.txt
 *.suo
 *.tr2
 *.td2
+*.map
 Debug
 Release
 x64
