@@ -120,6 +120,107 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
 #endif
 
 /****************************************************************************/
+/* TriState class */
+
+#ifdef __cplusplus
+    #include <string>   // for std::string, std::wstring, ...
+    class TriState
+    {
+    public:
+        TriState()
+            : m_value(TS_UNKNOWN) { }
+        TriState(TRISTATE value)
+            : m_value(value) { }
+        TriState(const TriState& value)
+            : m_value(value.m_value) { }
+        TriState(bool value)
+            : m_value(value ? TS_TRUE : TS_FALSE) { }
+        TriState(const char *str)
+            : m_value(TS_from_str(str)) { }
+        TriState(const wchar_t *wstr)
+            : m_value(TS_from_wstr(wstr)) { }
+        TriState(const char *str, bool *converted)
+            : m_value(TS_from_str(str, converted)) { }
+        TriState(const wchar_t *wstr, bool *converted)
+            : m_value(TS_from_wstr(wstr, converted)) { }
+
+        bool is_valid() const {
+            return TS_is_valid_tri(m_value);
+        }
+        operator bool() const {
+            bool value = false;
+            TS_to_bool(m_value, &value);
+            return value;
+        }
+
+        std::string str() const {
+            return std::string(TS_to_str(m_value));
+        }
+        std::wstring wstr() const {
+            return std::wstring(TS_to_wstr(m_value));
+        }
+#if defined(UNICODE) || defined(_UNICODE)
+        std::wstring tstr() const { return wstr(); }
+#else
+        std::string tstr() const { return str(); }
+#endif
+
+        TriState& operator=(bool value) {
+            m_value = TS_from_bool(value);
+            return *this;
+        }
+        TriState& operator=(TRISTATE value) {
+            m_value = value;
+            return *this;
+        }
+        TriState& operator=(const TriState& value) {
+            m_value = value.m_value;
+            return *this;
+        }
+
+        bool operator==(const TriState& value) const {
+            return m_value == value.m_value;
+        }
+        bool operator!=(const TriState& value) const {
+            return m_value != value.m_value;
+        }
+        bool operator>(const TriState& value) const {
+            return m_value > value.m_value;
+        }
+        bool operator<(const TriState& value) const {
+            return m_value < value.m_value;
+        }
+        bool operator>=(const TriState& value) const {
+            return m_value > value.m_value;
+        }
+        bool operator<=(const TriState& value) const {
+            return m_value < value.m_value;
+        }
+
+        TriState operator&&(TriState value) const {
+            return TriState(TS_tri_and(m_value, value.m_value));
+        }
+        TriState operator||(TriState value) const {
+            return TriState(TS_tri_and(m_value, value.m_value));
+        }
+        TriState operator!() const {
+            return TriState(TS_tri_not(m_value));
+        }
+
+        static const TriState T;
+        static const TriState F;
+        static const TriState U;
+
+    protected:
+        TRISTATE m_value;
+    }; // class TriState
+
+    /*static*/ const TriState TriState::T(TS_TRUE);
+    /*static*/ const TriState TriState::F(TS_FALSE);
+    /*static*/ const TriState TriState::U(TS_UNKNOWN);
+#endif  /* def __cplusplus */
+
+/****************************************************************************/
 /* inline functions */
 
 #ifndef TRISTATE_NO_INLINING

@@ -418,50 +418,50 @@ int main(void)
     table[0] = false;
     table[1] = false;
     table[2] = false;
-    value = TS_connect_and(3, table);
-    assert(!value);
+    flag = TS_connect_and(3, table);
+    assert(!flag);
 
     table[0] = true;
     table[1] = true;
     table[2] = true;
-    value = TS_connect_and(3, table);
-    assert(value);
+    flag = TS_connect_and(3, table);
+    assert(flag);
 
     table[0] = false;
     table[1] = true;
     table[2] = true;
-    value = TS_connect_and(3, table);
-    assert(!value);
+    flag = TS_connect_and(3, table);
+    assert(!flag);
 
     table[0] = true;
     table[1] = false;
     table[2] = false;
-    value = TS_connect_and(3, table);
-    assert(!value);
+    flag = TS_connect_and(3, table);
+    assert(!flag);
 
     table[0] = false;
     table[1] = false;
     table[2] = false;
-    value = TS_connect_or(3, table);
-    assert(!value);
+    flag = TS_connect_or(3, table);
+    assert(!flag);
 
     table[0] = true;
     table[1] = true;
     table[2] = true;
-    value = TS_connect_or(3, table);
-    assert(value);
+    flag = TS_connect_or(3, table);
+    assert(flag);
 
     table[0] = false;
     table[1] = true;
     table[2] = true;
-    value = TS_connect_or(3, table);
-    assert(value);
+    flag = TS_connect_or(3, table);
+    assert(flag);
 
     table[0] = true;
     table[1] = false;
     table[2] = false;
-    value = TS_connect_or(3, table);
-    assert(value);
+    flag = TS_connect_or(3, table);
+    assert(flag);
 
     tri_table[0] = TS_UNKNOWN;
     tri_table[1] = TS_UNKNOWN;
@@ -650,6 +650,34 @@ int main(void)
 
     assert(!TS_not(true));
     assert(TS_not(false));
+
+#ifdef __cplusplus
+    assert((TriState)false == TriState::F);
+    assert((TriState)true == TriState::T);
+    assert((TriState)TS_FALSE == TriState::F);
+    assert((TriState)TS_TRUE == TriState::T);
+    assert((TriState)TS_UNKNOWN == TriState::U);
+    assert((TriState)"false" == TriState::F);
+    assert((TriState)"true" == TriState::T);
+    assert((TriState)"unknown" == TriState::U);
+    assert((TriState)L"false" == TriState::F);
+    assert((TriState)L"true" == TriState::T);
+    assert((TriState)L"unknown" == TriState::U);
+    assert((bool)TriState::T == true);
+    assert((bool)TriState::F == false);
+    assert((bool)TriState::U == false);
+    TriState ts;
+    assert(ts == TriState::U);
+    ts = TS_UNKNOWN;
+    assert(ts == TriState::U);
+    ts = TS_FALSE;
+    assert(ts == TriState::F);
+    ts = TS_TRUE;
+    assert(ts == TriState::T);
+    TriState ts2 = ts;
+    TriState ts3(ts);
+    assert(ts2 == ts3);
+#endif  /* def __cplusplus */
 
     return 0;
 } /* main */
