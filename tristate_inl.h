@@ -83,8 +83,6 @@ TS_from_wstr(const wchar_t *str, bool *converted)
 #ifdef __cplusplus
     using namespace std;
 #endif
-    if (converted)
-        *converted = false;
     if (wcscmp(str, L"false") == 0)
     {
         if (converted)
@@ -103,6 +101,8 @@ TS_from_wstr(const wchar_t *str, bool *converted)
             *converted = true;
         return TS_UNKNOWN;
     }
+    if (converted)
+        *converted = false;
     return TS_UNKNOWN;
 }
 
