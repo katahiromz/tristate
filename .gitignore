@@ -8,6 +8,8 @@ a.txt
 *.sdf
 *.filters
 *.suo
+*.tr2
+*.td2
 Debug
 Release
 x64
