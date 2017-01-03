@@ -1,3 +1,4 @@
+
 /* tristate_inl.h --- tri-state logic inlines by katahiromz
  * This file is public domain software (PDS).
  * Copyright (C) 2017 Katayama Hirofumi MZ.
@@ -173,7 +174,7 @@ TRISTATE_INLINE void
 TS_get_totality(bool *value, size_t num, const bool *values)
 {
     assert(value != NULL);
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     TRISTATE state;
     TS_get_tri_totality(&state, num, values);
     if (state < 0)
@@ -188,7 +189,7 @@ TS_set_totality(bool value, size_t num, bool *values)
 #ifdef __cplusplus
     using namespace std;
 #endif
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     if (sizeof(bool) == 1)
     {
         memset(values, value, num * sizeof(bool));
@@ -207,7 +208,7 @@ TRISTATE_INLINE void
 TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values)
 {
     assert(value != NULL);
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     bool are_false = true;
     bool are_true = true;
     while (num-- > 0)
@@ -243,7 +244,7 @@ TS_set_tri_totality(TRISTATE value, size_t num, bool *values)
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
 #endif
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     if (value < 0)
     {
         TS_set_totality(false, num, values);
@@ -258,7 +259,7 @@ TRISTATE_INLINE void
 TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values)
 {
     assert(value != NULL);
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     bool are_false = true;
     bool are_true = true;
     while (num-- > 0)
@@ -283,7 +284,7 @@ TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values)
 TRISTATE_INLINE void
 TS_set_totality_tri(bool value, size_t num, TRISTATE *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(value == false || value == true);
 #endif
@@ -299,7 +300,7 @@ TRISTATE_INLINE void
 TS_get_tri_totality_tri(TRISTATE *value, size_t num, const TRISTATE *values)
 {
     assert(value != NULL);
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     bool are_false = true;
     bool are_true = true;
     while (num-- > 0)
@@ -341,7 +342,7 @@ TS_set_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 TRISTATE_INLINE void
 TS_reset_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
 #endif
@@ -355,7 +356,7 @@ TS_reset_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 TRISTATE_INLINE void
 TS_each_and(bool value, size_t num, bool *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(value == false || value == true);
 #endif
@@ -367,7 +368,7 @@ TS_each_and(bool value, size_t num, bool *values)
 TRISTATE_INLINE void
 TS_each_or (bool value, size_t num, bool *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(value == false || value == true);
 #endif
@@ -379,7 +380,7 @@ TS_each_or (bool value, size_t num, bool *values)
 TRISTATE_INLINE void
 TS_each_not(size_t num, bool *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
@@ -394,9 +395,37 @@ TS_each_not(size_t num, bool *values)
 }
 
 TRISTATE_INLINE void
-TS_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
+TS_each_and_tri(bool value, size_t num, TRISTATE *values)
 {
-    assert(values != NULL);
+#ifdef TRISTATE_STRICT
+    assert(value == false || value == true);
+#endif
+    assert(values != NULL || num == 0);
+
+    if (value)
+        return;
+
+    TS_set_totality_tri(false, num, values);
+}
+
+TRISTATE_INLINE void
+TS_each_or_tri(bool value, size_t num, TRISTATE *values)
+{
+#ifdef TRISTATE_STRICT
+    assert(value == false || value == true);
+#endif
+    assert(values != NULL || num == 0);
+
+    if (!value)
+        return;
+
+    TS_set_totality_tri(true, num, values);
+}
+
+TRISTATE_INLINE void
+TS_tri_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
+{
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
 #endif
@@ -423,9 +452,9 @@ TS_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
 }
 
 TRISTATE_INLINE void
-TS_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
+TS_tri_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
 #endif
@@ -454,7 +483,7 @@ TS_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
 TRISTATE_INLINE void
 TS_each_not_tri(size_t num, TRISTATE *values)
 {
-    assert(values != NULL);
+    assert(values != NULL || num == 0);
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT

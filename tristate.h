@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  13 /* Version 13 */
+#define TRISTATE_H_  14     /* Version 14 */
 
 #if (defined(_MSC_VER) && _MSC_VER > 1000)
     #pragma once
@@ -91,9 +91,12 @@ void TS_each_and(bool value, size_t num, bool *values);
 void TS_each_or (bool value, size_t num, bool *values);
 void TS_each_not(            size_t num, bool *values);
 
-void TS_each_and_tri(TRISTATE value, size_t num, TRISTATE *values);
-void TS_each_or_tri (TRISTATE value, size_t num, TRISTATE *values);
-void TS_each_not_tri(                size_t num, TRISTATE *values);
+void TS_each_and_tri(bool value, size_t num, TRISTATE *values);
+void TS_each_or_tri (bool value, size_t num, TRISTATE *values);
+void TS_each_not_tri(            size_t num, TRISTATE *values);
+
+void TS_tri_each_and_tri(TRISTATE value, size_t num, TRISTATE *values);
+void TS_tri_each_or_tri (TRISTATE value, size_t num, TRISTATE *values);
 
 bool TS_connect_and(size_t num, const bool *values);
 bool TS_connect_or (size_t num, const bool *values);

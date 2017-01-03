@@ -338,15 +338,7 @@ int main(void)
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
-    TS_each_and_tri(TS_UNKNOWN, 3, tri_table);
-    assert(tri_table[0] == TS_UNKNOWN);
-    assert(tri_table[1] == TS_FALSE);
-    assert(tri_table[2] == TS_UNKNOWN);
-
-    tri_table[0] = TS_TRUE;
-    tri_table[1] = TS_FALSE;
-    tri_table[2] = TS_UNKNOWN;
-    TS_each_and_tri(TS_FALSE, 3, tri_table);
+    TS_each_and_tri(false, 3, tri_table);
     assert(tri_table[0] == TS_FALSE);
     assert(tri_table[1] == TS_FALSE);
     assert(tri_table[2] == TS_FALSE);
@@ -354,7 +346,7 @@ int main(void)
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
-    TS_each_and_tri(TS_TRUE, 3, tri_table);
+    TS_each_and_tri(true, 3, tri_table);
     assert(tri_table[0] == TS_TRUE);
     assert(tri_table[1] == TS_FALSE);
     assert(tri_table[2] == TS_UNKNOWN);
@@ -362,7 +354,47 @@ int main(void)
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
-    TS_each_or_tri(TS_UNKNOWN, 3, tri_table);
+    TS_each_or_tri(false, 3, tri_table);
+    assert(tri_table[0] == TS_TRUE);
+    assert(tri_table[1] == TS_FALSE);
+    assert(tri_table[2] == TS_UNKNOWN);
+
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    TS_each_or_tri(true, 3, tri_table);
+    assert(tri_table[0] == TS_TRUE);
+    assert(tri_table[1] == TS_TRUE);
+    assert(tri_table[2] == TS_TRUE);
+
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    TS_tri_each_and_tri(TS_UNKNOWN, 3, tri_table);
+    assert(tri_table[0] == TS_UNKNOWN);
+    assert(tri_table[1] == TS_FALSE);
+    assert(tri_table[2] == TS_UNKNOWN);
+
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    TS_tri_each_and_tri(TS_FALSE, 3, tri_table);
+    assert(tri_table[0] == TS_FALSE);
+    assert(tri_table[1] == TS_FALSE);
+    assert(tri_table[2] == TS_FALSE);
+
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    TS_tri_each_and_tri(TS_TRUE, 3, tri_table);
+    assert(tri_table[0] == TS_TRUE);
+    assert(tri_table[1] == TS_FALSE);
+    assert(tri_table[2] == TS_UNKNOWN);
+
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    TS_tri_each_or_tri(TS_UNKNOWN, 3, tri_table);
     assert(tri_table[0] == TS_TRUE);
     assert(tri_table[1] == TS_UNKNOWN);
     assert(tri_table[2] == TS_UNKNOWN);
@@ -370,7 +402,7 @@ int main(void)
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
-    TS_each_or_tri(TS_FALSE, 3, tri_table);
+    TS_tri_each_or_tri(TS_FALSE, 3, tri_table);
     assert(tri_table[0] == TS_TRUE);
     assert(tri_table[1] == TS_FALSE);
     assert(tri_table[2] == TS_UNKNOWN);
@@ -378,7 +410,7 @@ int main(void)
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
-    TS_each_or_tri(TS_TRUE, 3, tri_table);
+    TS_tri_each_or_tri(TS_TRUE, 3, tri_table);
     assert(tri_table[0] == TS_TRUE);
     assert(tri_table[1] == TS_TRUE);
     assert(tri_table[2] == TS_TRUE);
