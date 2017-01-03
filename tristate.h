@@ -131,6 +131,10 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
     class TriState
     {
     public:
+        static const TriState T;    /* true value */
+        static const TriState F;    /* false value */
+        static const TriState U;    /* unknown value */
+
         TriState()
             : m_value(TS_UNKNOWN) { }
         TriState(TRISTATE value)
@@ -359,10 +363,6 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
         operator!(const TriState& value) {
             return TS_tri_not(value.m_value);
         }
-
-        static const TriState T;    /* true value */
-        static const TriState F;    /* false value */
-        static const TriState U;    /* unknown value */
 
     protected:
         TRISTATE m_value;
