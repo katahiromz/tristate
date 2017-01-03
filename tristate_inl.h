@@ -352,6 +352,125 @@ TS_reset_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
     }
 }
 
+TRISTATE_INLINE void
+TS_each_and(TRISTATE value, size_t num, TRISTATE *values)
+{
+    assert(values != NULL);
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(value));
+#endif
+    if (value > 0)
+    {
+        ;
+    }
+    else if (value < 0)
+    {
+        TS_set_totality_tri(false, num, values);
+    }
+    else
+    {
+        while (num-- > 0)
+        {
+#ifdef TRISTATE_STRICT
+            assert(TS_is_valid(*values));
+#endif
+            *values = TS_and(*values, value);
+#ifdef TRISTATE_STRICT
+            assert(TS_is_valid(*values));
+#endif
+            ++values;
+        }
+    }
+}
+
+TRISTATE_INLINE void
+TS_each_or(TRISTATE value, size_t num, TRISTATE *values)
+{
+    assert(values != NULL);
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(value));
+#endif
+    if (value > 0)
+    {
+        TS_set_totality_tri(true, num, values);
+    }
+    else if (value < 0)
+    {
+        ;
+    }
+    else
+    {
+        while (num-- > 0)
+        {
+#ifdef TRISTATE_STRICT
+            assert(TS_is_valid(*values));
+#endif
+            *values = TS_or(*values, value);
+#ifdef TRISTATE_STRICT
+            assert(TS_is_valid(*values));
+#endif
+            ++values;
+        }
+    }
+}
+
+TRISTATE_INLINE void
+TS_each_not(size_t num, TRISTATE *values)
+{
+    assert(values != NULL);
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
+        *values = TS_not(*values);
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
+        ++values;
+    }
+}
+
+TRISTATE_INLINE TRISTATE
+TS_connect_and(size_t num, TRISTATE *values)
+{
+    TRISTATE value = TS_TRUE;
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
+        value = TS_and(value, *values);
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(value));
+#endif
+        if (value < 0)
+            break;
+        ++values;
+    }
+    return value;
+}
+
+TRISTATE_INLINE TRISTATE
+TS_connect_or(size_t num, TRISTATE *values)
+{
+    TRISTATE value = TS_FALSE;
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
+        value = TS_or(value, *values);
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(value));
+#endif
+        if (value > 0)
+            break;
+        ++values;
+    }
+    return value;
+}
+
 /****************************************************************************/
 
 #ifdef __cplusplus

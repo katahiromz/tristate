@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  10 /* Version 10 */
+#define TRISTATE_H_  11 /* Version 11 */
 
 #if (defined(_MSC_VER) && _MSC_VER > 1000)
     #pragma once
@@ -86,6 +86,13 @@ void
 TS_set_tri_totality_tri(TRISTATE   value, size_t num,       TRISTATE *values);
 void
 TS_reset_tri_totality_tri(TRISTATE value, size_t num,       TRISTATE *values);
+
+void TS_each_and(TRISTATE value, size_t num, TRISTATE *values);
+void TS_each_or (TRISTATE value, size_t num, TRISTATE *values);
+void TS_each_not(size_t num, TRISTATE *values);
+
+TRISTATE TS_connect_and(size_t num, TRISTATE *values);
+TRISTATE TS_connect_or (size_t num, TRISTATE *values);
 
 #ifdef __cplusplus
 } // extern "C"
