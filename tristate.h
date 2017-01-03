@@ -71,6 +71,10 @@ void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
 const char *        TS_to_str(TRISTATE value);
 const wchar_t *     TS_to_wstr(TRISTATE value);
 
+#define TS_and(value1,value2)   ((value1) && (value2))
+#define TS_or(value1,value2)    ((value1) || (value2))
+#define TS_not(value)           (!(value))
+
 TRISTATE TS_tri_and(TRISTATE value1, TRISTATE value2);
 TRISTATE TS_tri_or (TRISTATE value1, TRISTATE value2);
 TRISTATE TS_tri_not(TRISTATE value);
