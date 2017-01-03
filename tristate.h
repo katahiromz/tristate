@@ -27,7 +27,9 @@ typedef enum TRISTATE
     TS_UNKNOWN = 0,     /* unknown value (default) */
     TS_FALSE = -1,      /* false value */
     TS_TRUE = 1         /* true value */
-} TRISTATE;
+} TRISTATE, *PTRISTATE;
+
+typedef const TRISTATE *PCTRISTATE;
 
 /****************************************************************************/
 /* functions */
