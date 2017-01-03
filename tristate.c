@@ -602,6 +602,19 @@ int main(void)
     assert(tri_table[1] == TS_TRUE);
     assert(tri_table[2] == TS_TRUE);
 
+    assert(!TS_and(false, false));
+    assert(!TS_and(false, true));
+    assert(!TS_and(true, false));
+    assert(TS_and(true, true));
+
+    assert(!TS_or(false, false));
+    assert(TS_or(false, true));
+    assert(TS_or(true, false));
+    assert(TS_or(true, true));
+
+    assert(!TS_not(true));
+    assert(TS_not(false));
+
     return 0;
 } /* main */
 #endif  /* def TRISTATE_UNITTEST */
