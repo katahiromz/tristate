@@ -360,26 +360,24 @@ TS_each_and(TRISTATE value, size_t num, TRISTATE *values)
     assert(TS_is_valid(value));
 #endif
     if (value > 0)
-    {
-        ;
-    }
-    else if (value < 0)
+        return;
+
+    if (value < 0)
     {
         TS_set_totality_tri(false, num, values);
+        return;
     }
-    else
+
+    while (num-- > 0)
     {
-        while (num-- > 0)
-        {
 #ifdef TRISTATE_STRICT
-            assert(TS_is_valid(*values));
+        assert(TS_is_valid(*values));
 #endif
-            *values = TS_and(*values, value);
+        *values = TS_and(*values, value);
 #ifdef TRISTATE_STRICT
-            assert(TS_is_valid(*values));
+        assert(TS_is_valid(*values));
 #endif
-            ++values;
-        }
+        ++values;
     }
 }
 
@@ -393,24 +391,22 @@ TS_each_or(TRISTATE value, size_t num, TRISTATE *values)
     if (value > 0)
     {
         TS_set_totality_tri(true, num, values);
+        return;
     }
-    else if (value < 0)
+
+    if (value < 0)
+        return;
+    
+    while (num-- > 0)
     {
-        ;
-    }
-    else
-    {
-        while (num-- > 0)
-        {
 #ifdef TRISTATE_STRICT
-            assert(TS_is_valid(*values));
+        assert(TS_is_valid(*values));
 #endif
-            *values = TS_or(*values, value);
+        *values = TS_or(*values, value);
 #ifdef TRISTATE_STRICT
-            assert(TS_is_valid(*values));
+        assert(TS_is_valid(*values));
 #endif
-            ++values;
-        }
+        ++values;
     }
 }
 
