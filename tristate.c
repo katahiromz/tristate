@@ -293,102 +293,6 @@ int main(void)
     TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
     assert(value == TS_TRUE);
 
-    tri_unknown_table[0] = TS_UNKNOWN;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value == 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_FALSE;
-    tri_unknown_table[2] = TS_FALSE;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_TRUE;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value > 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_TRUE;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_FALSE;
-    tri_unknown_table[2] = TS_FALSE;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_and(3, tri_unknown_table);
-    assert(value == 0);
-
-    tri_unknown_table[0] = TS_UNKNOWN;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value == 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_FALSE;
-    tri_unknown_table[2] = TS_FALSE;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value < 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_TRUE;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value > 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value > 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_TRUE;
-    tri_unknown_table[2] = TS_TRUE;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value > 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_FALSE;
-    tri_unknown_table[2] = TS_FALSE;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value > 0);
-
-    tri_unknown_table[0] = TS_FALSE;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value == 0);
-
-    tri_unknown_table[0] = TS_TRUE;
-    tri_unknown_table[1] = TS_UNKNOWN;
-    tri_unknown_table[2] = TS_UNKNOWN;
-    value = TS_connect_or(3, tri_unknown_table);
-    assert(value > 0);
-
     tri_unknown_table[0] = TS_TRUE;
     tri_unknown_table[1] = TS_FALSE;
     tri_unknown_table[2] = TS_UNKNOWN;
@@ -436,6 +340,102 @@ int main(void)
     assert(tri_unknown_table[0] == TS_TRUE);
     assert(tri_unknown_table[1] == TS_TRUE);
     assert(tri_unknown_table[2] == TS_TRUE);
+
+    tri_unknown_table[0] = TS_UNKNOWN;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value == 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_FALSE;
+    tri_unknown_table[2] = TS_FALSE;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_TRUE;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value > 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_TRUE;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_FALSE;
+    tri_unknown_table[2] = TS_FALSE;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_and(3, tri_unknown_table);
+    assert(value == 0);
+
+    tri_unknown_table[0] = TS_UNKNOWN;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value == 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_FALSE;
+    tri_unknown_table[2] = TS_FALSE;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value < 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_TRUE;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value > 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value > 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_TRUE;
+    tri_unknown_table[2] = TS_TRUE;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value > 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_FALSE;
+    tri_unknown_table[2] = TS_FALSE;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value > 0);
+
+    tri_unknown_table[0] = TS_FALSE;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value == 0);
+
+    tri_unknown_table[0] = TS_TRUE;
+    tri_unknown_table[1] = TS_UNKNOWN;
+    tri_unknown_table[2] = TS_UNKNOWN;
+    value = TS_connect_or(3, tri_unknown_table);
+    assert(value > 0);
 
     return 0;
 } /* main */
