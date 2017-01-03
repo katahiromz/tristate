@@ -396,7 +396,7 @@ TS_each_or(TRISTATE value, size_t num, TRISTATE *values)
 
     if (value < 0)
         return;
-    
+
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
