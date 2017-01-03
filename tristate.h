@@ -14,6 +14,7 @@
 #ifdef __cplusplus
     #include <cstring>          /* for strcmp and wcscmp */
     #include <cassert>          /* for assert */
+    using std::size_t;
 #else
     #include <string.h>         /* for strcmp and wcscmp */
     #include <assert.h>         /* for assert */
@@ -153,7 +154,9 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
             return TS_is_valid_tri(m_value);
         }
         operator bool() const {
-            return m_value == TS_TRUE;
+            bool flag = false;
+            TS_to_bool(m_value, &flag);
+            return flag == true;
         }
 
         std::string str() const {
@@ -203,36 +206,11 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
         }
         inline friend bool
         operator>=(const TriState& value1, const TriState& value2) {
-            return value1.m_value > value2.m_value;
+            return value1.m_value >= value2.m_value;
         }
         inline friend bool
         operator<=(const TriState& value1, const TriState& value2) {
-            return value1.m_value < value2.m_value;
-        }
-
-        inline friend bool
-        operator==(TRISTATE value1, const TriState& value2) {
-            return value1 == value2.m_value;
-        }
-        inline friend bool
-        operator!=(TRISTATE value1, const TriState& value2) {
-            return value1 != value2.m_value;
-        }
-        inline friend bool
-        operator>(TRISTATE value1, const TriState& value2) {
-            return value1 > value2.m_value;
-        }
-        inline friend bool
-        operator<(TRISTATE value1, const TriState& value2) {
-            return value1 < value2.m_value;
-        }
-        inline friend bool
-        operator>=(TRISTATE value1, const TriState& value2) {
-            return value1 > value2.m_value;
-        }
-        inline friend bool
-        operator<=(TRISTATE value1, const TriState& value2) {
-            return value1 < value2.m_value;
+            return value1.m_value <= value2.m_value;
         }
 
         inline friend bool
@@ -253,11 +231,11 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
         }
         inline friend bool
         operator>=(int value1, const TriState& value2) {
-            return TS_from_int(value1) > value2.m_value;
+            return TS_from_int(value1) >= value2.m_value;
         }
         inline friend bool
         operator<=(int value1, const TriState& value2) {
-            return TS_from_int(value1) < value2.m_value;
+            return TS_from_int(value1) <= value2.m_value;
         }
 
         inline friend bool
@@ -278,86 +256,11 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
         }
         inline friend bool
         operator>=(bool value1, const TriState& value2) {
-            return TS_from_bool(value1) > value2.m_value;
+            return TS_from_bool(value1) >= value2.m_value;
         }
         inline friend bool
         operator<=(bool value1, const TriState& value2) {
-            return TS_from_bool(value1) < value2.m_value;
-        }
-
-        inline friend bool
-        operator==(const TriState& value1, TRISTATE value2) {
-            return value1.m_value == value2;
-        }
-        inline friend bool
-        operator!=(const TriState& value1, TRISTATE value2) {
-            return value1.m_value != value2;
-        }
-        inline friend bool
-        operator>(const TriState& value1, TRISTATE value2) {
-            return value1.m_value > value2;
-        }
-        inline friend bool
-        operator<(const TriState& value1, TRISTATE value2) {
-            return value1.m_value < value2;
-        }
-        inline friend bool
-        operator>=(const TriState& value1, TRISTATE value2) {
-            return value1.m_value > value2;
-        }
-        inline friend bool
-        operator<=(const TriState& value1, TRISTATE value2) {
-            return value1.m_value < value2;
-        }
-
-        inline friend bool
-        operator==(const TriState& value1, int value2) {
-            return value1.m_value == TS_from_int(value2);
-        }
-        inline friend bool
-        operator!=(const TriState& value1, int value2) {
-            return value1.m_value != TS_from_int(value2);
-        }
-        inline friend bool
-        operator>(const TriState& value1, int value2) {
-            return value1.m_value > TS_from_int(value2);
-        }
-        inline friend bool
-        operator<(const TriState& value1, int value2) {
-            return value1.m_value < TS_from_int(value2);
-        }
-        inline friend bool
-        operator>=(const TriState& value1, int value2) {
-            return value1.m_value > TS_from_int(value2);
-        }
-        inline friend bool
-        operator<=(const TriState& value1, int value2) {
-            return value1.m_value < TS_from_int(value2);
-        }
-
-        inline friend bool
-        operator==(const TriState& value1, bool value2) {
-            return value1.m_value == TS_from_bool(value2);
-        }
-        inline friend bool
-        operator!=(const TriState& value1, bool value2) {
-            return value1.m_value != TS_from_bool(value2);
-        }
-        inline friend bool
-        operator>(const TriState& value1, bool value2) {
-            return value1.m_value > TS_from_bool(value2);
-        }
-        inline friend bool
-        operator<(const TriState& value1, bool value2) {
-            return value1.m_value < TS_from_bool(value2);
-        }
-        inline friend bool
-        operator>=(const TriState& value1, bool value2) {
-            return value1.m_value > TS_from_bool(value2);
-        }
-        inline friend bool
-        operator<=(const TriState& value1, bool value2) {
-            return value1.m_value < TS_from_bool(value2);
+            return TS_from_bool(value1) <= value2.m_value;
         }
 
         inline friend TriState
