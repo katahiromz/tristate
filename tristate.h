@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  16     /* Version 16 */
+#define TRISTATE_H_  17     /* Version 17 */
 
 #if (defined(_MSC_VER) && _MSC_VER > 1000)
     #pragma once
@@ -71,9 +71,9 @@ void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
 const char *        TS_to_str(TRISTATE value);
 const wchar_t *     TS_to_wstr(TRISTATE value);
 
-#define TS_and(value1,value2)   ((value1) && (value2))
-#define TS_or(value1,value2)    ((value1) || (value2))
-#define TS_not(value)           (!(value))
+bool TS_and(bool value1, bool value2);
+bool TS_or(bool value1, bool value2);
+bool TS_not(bool value);
 
 TRISTATE TS_tri_and(TRISTATE value1, TRISTATE value2);
 TRISTATE TS_tri_or (TRISTATE value1, TRISTATE value2);

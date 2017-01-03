@@ -54,6 +54,24 @@ TS_to_bool(TRISTATE value, bool *flag, bool *default_value/* = NULL*/)
     }
 }
 
+TRISTATE_INLINE bool
+TS_and(bool value1, bool value2)
+{
+    return value1 && value2;
+}
+
+TRISTATE_INLINE bool
+TS_or(bool value1, bool value2)
+{
+    return value1 || value2;
+}
+
+TRISTATE_INLINE bool
+TS_not(bool value)
+{
+    return !value;
+}
+
 TRISTATE_INLINE void
 TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris)
 {
