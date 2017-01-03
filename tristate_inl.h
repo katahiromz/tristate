@@ -186,6 +186,7 @@ TRISTATE_INLINE int
 TS_to_int(TRISTATE value)
 {
 #ifdef TRISTATE_STRICT
+    assert(TS_is_valid_tri(value));
     if (value < 0)
         return -1;
     if (value > 0)
