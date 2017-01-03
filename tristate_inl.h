@@ -171,21 +171,29 @@ TS_tri_to_bool_def(size_t num, const TRISTATE *tris, bool *bools,
 TRISTATE_INLINE TRISTATE
 TS_from_int(int value)
 {
+#ifdef TRISTATE_STRICT
     if (value < 0)
         return TS_FALSE;
     if (value > 0)
         return TS_TRUE;
     return TS_UNKNOWN;
+#else
+    return (TRISTATE)value;
+#endif
 }
 
 TRISTATE_INLINE int
 TS_to_int(TRISTATE value)
 {
+#ifdef TRISTATE_STRICT
     if (value < 0)
         return -1;
     if (value > 0)
         return 1;
     return 0;
+#else
+    return (int)value;
+#endif
 }
 
 TRISTATE_INLINE TRISTATE
