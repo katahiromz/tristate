@@ -169,13 +169,13 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
             m_value = value;
         }
 
-        std::string str() const   { return TS_to_str(m_value); }
+        std::string   str() const { return TS_to_str(m_value); }
         std::wstring wstr() const { return TS_to_wstr(m_value); }
 
 #if defined(UNICODE) || defined(_UNICODE)
         std::wstring tstr() const { return wstr(); }
 #else
-        std::string tstr() const  { return str(); }
+        std::string  tstr() const { return str(); }
 #endif
 
         TriS& operator=(bool value) {
