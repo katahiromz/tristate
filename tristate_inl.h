@@ -209,6 +209,9 @@ TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values)
     bool are_true = true;
     while (num-- > 0)
     {
+#ifdef TRISTATE_STRICT
+        assert(*values == false || *values == true);
+#endif
         if (*values)
             are_false = false;
         else
@@ -223,6 +226,9 @@ TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values)
         *value = TS_TRUE;
     else
         *value = TS_UNKNOWN;
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(*value));
+#endif
 }
 
 TRISTATE_INLINE void
@@ -230,6 +236,9 @@ TS_set_tri_totality(TRISTATE value, size_t num, bool *values)
 {
 #ifdef __cplusplus
     using namespace std;
+#endif
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(value));
 #endif
     assert(values != NULL);
     if (value < 0)
@@ -308,6 +317,9 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t num, const TRISTATE *values)
     bool are_true = true;
     while (num-- > 0)
     {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
         if (*values < 0)
             are_true = false;
         else if (*values > 0)
@@ -322,11 +334,17 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t num, const TRISTATE *values)
         *value = TS_TRUE;
     else
         *value = TS_UNKNOWN;
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(*value));
+#endif
 }
 
 TRISTATE_INLINE void
 TS_set_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(value));
+#endif
     if (value == TS_UNKNOWN)
         return;
 
@@ -337,6 +355,9 @@ TRISTATE_INLINE void
 TS_reset_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
     assert(values != NULL);
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid(value));
+#endif
     while (num-- > 0)
     {
         *values = value;
