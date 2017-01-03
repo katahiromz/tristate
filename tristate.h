@@ -32,7 +32,7 @@ typedef enum TRISTATE
 typedef const TRISTATE *PCTRISTATE;
 
 /****************************************************************************/
-/* functions */
+/* TRISTATE functions */
 
 #ifdef __cplusplus
 extern "C" {
