@@ -24,6 +24,9 @@ TS_is_valid(TRISTATE value)
 TRISTATE_INLINE TRISTATE
 TS_from_bool(bool value)
 {
+#ifdef TRISTATE_STRICT
+    assert(value == false || value == true);
+#endif
     return (value ? TS_TRUE : TS_FALSE);
 }
 
@@ -51,8 +54,6 @@ TS_from_str(const char *str, bool *converted)
 #ifdef __cplusplus
     using namespace std;
 #endif
-    if (converted)
-        *converted = false;
     if (strcmp(str, "false") == 0)
     {
         if (converted)
@@ -71,6 +72,8 @@ TS_from_str(const char *str, bool *converted)
             *converted = true;
         return TS_UNKNOWN;
     }
+    if (converted)
+        *converted = false;
     return TS_UNKNOWN;
 }
 
