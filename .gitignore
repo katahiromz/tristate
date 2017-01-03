@@ -1,0 +1,13 @@
+a.exe
+a.txt
+*.obj
+*.o
+*.tds
+*.user
+*.ncb
+*.sdf
+*.filters
+*.suo
+Debug
+Release
+x64
