@@ -189,20 +189,37 @@ TS_get_totality(size_t count, const bool *values)
 TRISTATE_INLINE void
 TS_set_totality(size_t count, bool *values, TRISTATE value)
 {
+#ifdef __cplusplus
+    using namespace std;
+#endif
     if (value < 0)
     {
-        while (count-- > 0)
+        if (sizeof(bool) == 1)
         {
-            *values = false;
-            ++values;
+            memset(values, false, count * sizeof(bool));
+        }
+        else
+        {
+            while (count-- > 0)
+            {
+                *values = false;
+                ++values;
+            }
         }
     }
     else if (value > 0)
     {
-        while (count-- > 0)
+        if (sizeof(bool) == 1)
         {
-            *values = true;
-            ++values;
+            memset(values, true, count * sizeof(bool));
+        }
+        else
+        {
+            while (count-- > 0)
+            {
+                *values = true;
+                ++values;
+            }
         }
     }
 }

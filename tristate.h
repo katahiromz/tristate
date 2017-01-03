@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  1 /* Version 1 */
+#define TRISTATE_H_  2 /* Version 2 */
 
 /****************************************************************************/
 
