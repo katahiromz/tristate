@@ -78,7 +78,7 @@ void TS_set_tri_totality(TRISTATE  value, size_t num,       bool *values);
 
 void TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values);
 void TS_set_totality_tri(bool  value, size_t num,       TRISTATE *values);
-#define TS_reset_totality_tri TS_set_totality_tri
+#define TS_reset_totality_tri   TS_set_totality_tri
 
 void
 TS_get_tri_totality_tri(TRISTATE * value, size_t num, const TRISTATE *values);
