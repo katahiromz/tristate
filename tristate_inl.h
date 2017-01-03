@@ -268,9 +268,9 @@ TS_get_totality_tri(bool *value, size_t count, const TRISTATE *values)
     bool are_false = true;
     while (count-- > 0)
     {
-        if (*values == TS_TRUE)
+        if (*values > 0)
             are_false = false;
-        else if (*values == TS_FALSE)
+        else if (*values < 0)
             are_true = false;
         ++values;
     }
@@ -303,9 +303,9 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t count, const TRISTATE *values)
     bool are_false = true;
     while (count-- > 0)
     {
-        if (*values == TS_TRUE)
+        if (*values > 0)
             are_false = false;
-        else if (*values == TS_FALSE)
+        else if (*values < 0)
             are_true = false;
         ++values;
     }
