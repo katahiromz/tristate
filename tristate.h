@@ -42,7 +42,7 @@ typedef const TRISTATE *PCTRISTATE;
 extern "C" {
 #endif
 
-bool TS_is_valid(bool value);
+bool TS_is_valid_bool(bool value);
 bool TS_is_valid_tri(TRISTATE value);
 
 TRISTATE  TS_from_bool(bool value);
