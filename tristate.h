@@ -89,7 +89,7 @@ TS_reset_tri_totality_tri(TRISTATE value, size_t num,       TRISTATE *values);
 
 void TS_each_and(TRISTATE value, size_t num, TRISTATE *values);
 void TS_each_or (TRISTATE value, size_t num, TRISTATE *values);
-void TS_each_not(size_t num, TRISTATE *values);
+void TS_each_not(                size_t num, TRISTATE *values);
 
 TRISTATE TS_connect_and(size_t num, TRISTATE *values);
 TRISTATE TS_connect_or (size_t num, TRISTATE *values);
