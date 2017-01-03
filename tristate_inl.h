@@ -306,6 +306,9 @@ TRISTATE_INLINE void
 TS_set_totality_tri(bool value, size_t num, TRISTATE *values)
 {
     assert(values != NULL);
+#ifdef TRISTATE_STRICT
+    assert(value == false || value == true);
+#endif
     const TRISTATE state = TS_from_bool(value);
     while (num-- > 0)
     {
