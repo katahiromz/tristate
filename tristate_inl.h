@@ -5,7 +5,7 @@
  */
 
 #ifndef TRISTATE_H_
-    #error You should #include "tristate.h". You lose.
+    #error You should #include "tristate.h" rather than "tristate_inl.h".
 #endif
 
 #ifdef __cplusplus
