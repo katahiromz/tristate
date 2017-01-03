@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  17     /* Version 17 */
+#define TRISTATE_H_  18     /* Version 18 */
 
 #if (defined(_MSC_VER) && _MSC_VER > 1000)
     #pragma once
@@ -42,23 +42,17 @@ typedef const TRISTATE *PCTRISTATE;
 extern "C" {
 #endif
 
-bool TS_is_valid(TRISTATE value);
+bool TS_is_valid(bool value);
+bool TS_is_valid_tri(TRISTATE value);
 
 TRISTATE  TS_from_bool(bool value);
-#ifdef __cplusplus
-    void  TS_to_bool(TRISTATE value, bool *flag, bool *default_value = NULL);
-#else
-    void  TS_to_bool(TRISTATE value, bool *flag, bool *default_value);
-#endif
+void  TS_to_bool(TRISTATE value, bool *flag);
+void  TS_to_bool_def(TRISTATE value, bool *flag, bool default_value);
 
 void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
-#ifdef __cplusplus
-    void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
-                        bool *default_value = NULL);
-#else
-    void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
-                        bool *default_value);
-#endif
+void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools);
+void TS_tri_to_bool_def(size_t num, const TRISTATE *tris, bool *bools,
+                        bool default_value);
 
 #ifdef __cplusplus
     TRISTATE TS_from_str(const char *str, bool *converted = NULL);

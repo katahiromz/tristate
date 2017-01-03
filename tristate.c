@@ -559,29 +559,65 @@ int main(void)
     value = TS_connect_or_tri(3, tri_table);
     assert(value > 0);
 
+    assert(TS_from_bool(false) == TS_FALSE);
+    assert(TS_from_bool(true) == TS_TRUE);
+
+    flag = false;
+    TS_to_bool(TS_UNKNOWN, &flag);
+    assert(!flag);
+    flag = true;
+    TS_to_bool(TS_UNKNOWN, &flag);
+    assert(flag);
+
+    flag = false;
+    TS_to_bool(TS_FALSE, &flag);
+    assert(!flag);
+    flag = true;
+    TS_to_bool(TS_FALSE, &flag);
+    assert(!flag);
+
+    flag = false;
+    TS_to_bool(TS_TRUE, &flag);
+    assert(flag);
+    flag = true;
+    TS_to_bool(TS_TRUE, &flag);
+    assert(flag);
+
+    flag = false;
+    TS_to_bool_def(TS_UNKNOWN, &flag, false);
+    assert(!flag);
+    flag = false;
+    TS_to_bool_def(TS_UNKNOWN, &flag, true);
+    assert(flag);
+
+    flag = true;
+    TS_to_bool_def(TS_UNKNOWN, &flag, false);
+    assert(!flag);
+    flag = true;
+    TS_to_bool_def(TS_UNKNOWN, &flag, true);
+    assert(flag);
+
     tri_table[0] = TS_TRUE;
     tri_table[1] = TS_FALSE;
     tri_table[2] = TS_UNKNOWN;
     table[2] = false;
-    TS_tri_to_bool(3, tri_table, table, NULL);
+    TS_tri_to_bool(3, tri_table, table);
     assert(table[0] == true);
     assert(table[1] == false);
     assert(table[2] == false);
     table[2] = true;
-    TS_tri_to_bool(3, tri_table, table, NULL);
+    TS_tri_to_bool(3, tri_table, table);
     assert(table[0] == true);
     assert(table[1] == false);
     assert(table[2] == true);
 
-    flag = false;
     table[2] = true;
-    TS_tri_to_bool(3, tri_table, table, &flag);
+    TS_tri_to_bool_def(3, tri_table, table, false);
     assert(table[0] == true);
     assert(table[1] == false);
     assert(table[2] == false);
-    flag = true;
     table[2] = true;
-    TS_tri_to_bool(3, tri_table, table, &flag);
+    TS_tri_to_bool_def(3, tri_table, table, true);
     assert(table[0] == true);
     assert(table[1] == false);
     assert(table[2] == true);

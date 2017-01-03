@@ -15,7 +15,13 @@ extern "C" {
 /****************************************************************************/
 
 TRISTATE_INLINE bool
-TS_is_valid(TRISTATE value)
+TS_is_valid(bool value)
+{
+    return (value == false || value == true);
+}
+
+TRISTATE_INLINE bool
+TS_is_valid_tri(TRISTATE value)
 {
     switch (value)
     {
@@ -30,16 +36,16 @@ TRISTATE_INLINE TRISTATE
 TS_from_bool(bool value)
 {
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     return (value ? TS_TRUE : TS_FALSE);
 }
 
 TRISTATE_INLINE void
-TS_to_bool(TRISTATE value, bool *flag, bool *default_value/* = NULL*/)
+TS_to_bool(TRISTATE value, bool *flag)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value < 0)
     {
@@ -51,10 +57,27 @@ TS_to_bool(TRISTATE value, bool *flag, bool *default_value/* = NULL*/)
         assert(flag != NULL);
         *flag = true;
     }
-    else if (default_value)
+}
+
+TRISTATE_INLINE void
+TS_to_bool_def(TRISTATE value, bool *flag, bool default_value)
+{
+#ifdef TRISTATE_STRICT
+    assert(TS_is_valid_tri(value));
+    assert(TS_is_valid(default_value));
+#endif
+    assert(flag != NULL);
+    if (value < 0)
     {
-        assert(flag != NULL);
-        *flag = *default_value;
+        *flag = false;
+    }
+    else if (value > 0)
+    {
+        *flag = true;
+    }
+    else
+    {
+        *flag = default_value;
     }
 }
 
@@ -62,8 +85,8 @@ TRISTATE_INLINE bool
 TS_and(bool value1, bool value2)
 {
 #ifdef TRISTATE_STRICT
-    assert(value1 == false || value1 == true);
-    assert(value2 == false || value2 == true);
+    assert(TS_is_valid(value1));
+    assert(TS_is_valid(value2));
 #endif
     return value1 && value2;
 }
@@ -72,8 +95,8 @@ TRISTATE_INLINE bool
 TS_or(bool value1, bool value2)
 {
 #ifdef TRISTATE_STRICT
-    assert(value1 == false || value1 == true);
-    assert(value2 == false || value2 == true);
+    assert(TS_is_valid(value1));
+    assert(TS_is_valid(value2));
 #endif
     return value1 || value2;
 }
@@ -82,7 +105,7 @@ TRISTATE_INLINE bool
 TS_not(bool value)
 {
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     return !value;
 }
@@ -95,11 +118,11 @@ TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(*bools == false || *bools == true);
+        assert(TS_is_valid(*bools));
 #endif
         *tris = TS_from_bool(*bools);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*tris));
+        assert(TS_is_valid_tri(*tris));
 #endif
         ++bools;
         ++tris;
@@ -107,19 +130,38 @@ TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris)
 }
 
 TRISTATE_INLINE void
-TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
-               bool *default_value/* = NULL*/)
+TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools)
 {
     assert(tris != NULL || num == 0);
     assert(bools != NULL || num == 0);
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*tris));
+        assert(TS_is_valid_tri(*tris));
 #endif
-        TS_to_bool(*tris, bools, default_value);
+        TS_to_bool(*tris, bools);
 #ifdef TRISTATE_STRICT
-        assert(*bools == false || *bools == true);
+        assert(TS_is_valid(*bools));
+#endif
+        ++tris;
+        ++bools;
+    }
+}
+
+TRISTATE_INLINE void
+TS_tri_to_bool_def(size_t num, const TRISTATE *tris, bool *bools,
+                   bool default_value)
+{
+    assert(tris != NULL || num == 0);
+    assert(bools != NULL || num == 0);
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid_tri(*tris));
+#endif
+        TS_to_bool_def(*tris, bools, default_value);
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*bools));
 #endif
         ++tris;
         ++bools;
@@ -188,7 +230,7 @@ TRISTATE_INLINE const char *
 TS_to_str(TRISTATE value)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value < 0)
         return "false";
@@ -201,7 +243,7 @@ TRISTATE_INLINE const wchar_t *
 TS_to_wstr(TRISTATE value)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value < 0)
         return L"false";
@@ -214,8 +256,8 @@ TRISTATE_INLINE TRISTATE
 TS_tri_and(TRISTATE value1, TRISTATE value2)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value1));
-    assert(TS_is_valid(value2));
+    assert(TS_is_valid_tri(value1));
+    assert(TS_is_valid_tri(value2));
 #endif
     if (value1 < 0)
         return value1;
@@ -228,8 +270,8 @@ TRISTATE_INLINE TRISTATE
 TS_tri_or(TRISTATE value1, TRISTATE value2)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value1));
-    assert(TS_is_valid(value2));
+    assert(TS_is_valid_tri(value1));
+    assert(TS_is_valid_tri(value2));
 #endif
     if (value1 > 0)
         return value1;
@@ -242,7 +284,7 @@ TRISTATE_INLINE TRISTATE
 TS_tri_not(TRISTATE value)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     return (TRISTATE)-(int)value;
 }
@@ -291,7 +333,7 @@ TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(*values == false || *values == true);
+        assert(TS_is_valid(*values));
 #endif
         if (*values)
             are_false = false;
@@ -308,7 +350,7 @@ TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values)
     else
         *value = TS_UNKNOWN;
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(*value));
+    assert(TS_is_valid_tri(*value));
 #endif
 }
 
@@ -319,7 +361,7 @@ TS_set_tri_totality(TRISTATE value, size_t num, bool *values)
     using namespace std;
 #endif
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     assert(values != NULL || num == 0);
     if (value < 0)
@@ -342,7 +384,7 @@ TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         if (*values < 0)
             are_true = false;
@@ -363,7 +405,7 @@ TS_set_totality_tri(bool value, size_t num, TRISTATE *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     const TRISTATE state = TS_from_bool(value);
     while (num-- > 0)
@@ -383,7 +425,7 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t num, const TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         if (*values < 0)
             are_true = false;
@@ -400,7 +442,7 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t num, const TRISTATE *values)
     else
         *value = TS_UNKNOWN;
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(*value));
+    assert(TS_is_valid_tri(*value));
 #endif
 }
 
@@ -408,7 +450,7 @@ TRISTATE_INLINE void
 TS_set_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value == TS_UNKNOWN)
         return;
@@ -421,7 +463,7 @@ TS_reset_tri_totality_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     while (num-- > 0)
     {
@@ -435,7 +477,7 @@ TS_each_and(bool value, size_t num, bool *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     if (value)
         return;
@@ -447,7 +489,7 @@ TS_each_or (bool value, size_t num, bool *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     if (!value)
         return;
@@ -461,11 +503,11 @@ TS_each_not(size_t num, bool *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(*values == false || *values == true);
+        assert(TS_is_valid(*values));
 #endif
         *values = !*values;
 #ifdef TRISTATE_STRICT
-        assert(*values == false || *values == true);
+        assert(TS_is_valid(*values));
 #endif
         ++values;
     }
@@ -475,7 +517,7 @@ TRISTATE_INLINE void
 TS_each_and_tri(bool value, size_t num, TRISTATE *values)
 {
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     assert(values != NULL || num == 0);
 
@@ -489,7 +531,7 @@ TRISTATE_INLINE void
 TS_each_or_tri(bool value, size_t num, TRISTATE *values)
 {
 #ifdef TRISTATE_STRICT
-    assert(value == false || value == true);
+    assert(TS_is_valid(value));
 #endif
     assert(values != NULL || num == 0);
 
@@ -504,7 +546,7 @@ TS_tri_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value > 0)
         return;
@@ -518,11 +560,11 @@ TS_tri_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         *values = TS_tri_and(*values, value);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         ++values;
     }
@@ -533,7 +575,7 @@ TS_tri_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
 {
     assert(values != NULL || num == 0);
 #ifdef TRISTATE_STRICT
-    assert(TS_is_valid(value));
+    assert(TS_is_valid_tri(value));
 #endif
     if (value > 0)
     {
@@ -547,11 +589,11 @@ TS_tri_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         *values = TS_tri_or(*values, value);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         ++values;
     }
@@ -564,11 +606,11 @@ TS_each_not_tri(size_t num, TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         *values = TS_tri_not(*values);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         ++values;
     }
@@ -581,7 +623,7 @@ TS_connect_and(size_t num, const bool *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(*values == false || *values == true);
+        assert(TS_is_valid(*values));
 #endif
         value = *values;
         if (!value)
@@ -598,7 +640,7 @@ TS_connect_or(size_t num, const bool *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(*values == false || *values == true);
+        assert(TS_is_valid(*values));
 #endif
         value = *values;
         if (value)
@@ -615,11 +657,11 @@ TS_connect_and_tri(size_t num, const TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         value = TS_tri_and(value, *values);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(value));
+        assert(TS_is_valid_tri(value));
 #endif
         if (value < 0)
             break;
@@ -635,11 +677,11 @@ TS_connect_or_tri(size_t num, const TRISTATE *values)
     while (num-- > 0)
     {
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(*values));
+        assert(TS_is_valid_tri(*values));
 #endif
         value = TS_tri_or(value, *values);
 #ifdef TRISTATE_STRICT
-        assert(TS_is_valid(value));
+        assert(TS_is_valid_tri(value));
 #endif
         if (value > 0)
             break;
