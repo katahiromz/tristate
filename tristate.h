@@ -53,7 +53,7 @@ const char *        TS_to_str(TRISTATE value);
 const wchar_t *     TS_to_wstr(TRISTATE value);
 
 TRISTATE TS_and(TRISTATE value1, TRISTATE value2);
-TRISTATE TS_or(TRISTATE value1, TRISTATE value2);
+TRISTATE TS_or (TRISTATE value1, TRISTATE value2);
 TRISTATE TS_not(TRISTATE value);
 
 #if defined(UNICODE) || defined(_UNICODE)
@@ -63,7 +63,6 @@ TRISTATE TS_not(TRISTATE value);
     #define TS_from_tstr    TS_from_str
     #define TS_to_tstr      TS_to_str
 #endif
-
 
 void TS_get_totality(bool *value, size_t count, const bool *values);
 void TS_set_totality(bool  value, size_t count,       bool *values);
@@ -76,9 +75,9 @@ void TS_set_totality_tri(bool  value, size_t count,       TRISTATE *values);
 #define TS_reset_totality_tri TS_set_totality_tri
 
 void
-TS_get_tri_totality_tri(TRISTATE *value,  size_t count, const TRISTATE *values);
+TS_get_tri_totality_tri(TRISTATE * value, size_t count, const TRISTATE *values);
 void
-TS_set_tri_totality_tri(TRISTATE  value,  size_t count,       TRISTATE *values);
+TS_set_tri_totality_tri(TRISTATE   value, size_t count,       TRISTATE *values);
 void
 TS_reset_tri_totality_tri(TRISTATE value, size_t count,       TRISTATE *values);
 
