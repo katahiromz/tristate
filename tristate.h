@@ -131,9 +131,9 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
     class TriState
     {
     public:
-        static const TriState T;    /* true value */
-        static const TriState F;    /* false value */
-        static const TriState U;    /* unknown value */
+        static const TriState   T;  /* true value */
+        static const TriState   F;  /* false value */
+        static const TriState   U;  /* unknown value */
 
         TriState()
             : m_value(TS_UNKNOWN) { }
@@ -163,16 +163,13 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
             return flag;
         }
 
-        std::string str() const {
-            return std::string(TS_to_str(m_value));
-        }
-        std::wstring wstr() const {
-            return std::wstring(TS_to_wstr(m_value));
-        }
+        std::string str() const   { return TS_to_str(m_value); }
+        std::wstring wstr() const { return TS_to_wstr(m_value); }
+
 #if defined(UNICODE) || defined(_UNICODE)
         std::wstring tstr() const { return wstr(); }
 #else
-        std::string tstr() const { return str(); }
+        std::string tstr() const  { return str(); }
 #endif
 
         TriState& operator=(bool value) {
