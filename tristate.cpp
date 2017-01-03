@@ -665,6 +665,9 @@ int main(void)
     assert((TriState)L"true" == TriState::T);
     assert((TriState)L"unknown" == TriState::U);
     assert((TriState)L"invalid" == TriState::U);
+    assert((TriState)-1 == TriState::F);
+    assert((TriState)1 == TriState::T);
+    assert((TriState)0 == TriState::U);
     assert((bool)TriState::T == true);
     assert((bool)TriState::F == false);
     assert((bool)TriState::U == false);

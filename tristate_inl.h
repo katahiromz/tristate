@@ -169,6 +169,26 @@ TS_tri_to_bool_def(size_t num, const TRISTATE *tris, bool *bools,
 }
 
 TRISTATE_INLINE TRISTATE
+TS_from_int(int value)
+{
+    if (value < 0)
+        return TS_FALSE;
+    if (value > 0)
+        return TS_TRUE;
+    return TS_UNKNOWN;
+}
+
+TRISTATE_INLINE int
+TS_to_int(TRISTATE value)
+{
+    if (value < 0)
+        return -1;
+    if (value > 0)
+        return 1;
+    return 0;
+}
+
+TRISTATE_INLINE TRISTATE
 TS_from_str(const char *str, bool *converted)
 {
 #ifdef __cplusplus
