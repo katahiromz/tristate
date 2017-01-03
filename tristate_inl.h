@@ -57,18 +57,29 @@ TS_to_bool(TRISTATE value, bool *flag, bool *default_value/* = NULL*/)
 TRISTATE_INLINE bool
 TS_and(bool value1, bool value2)
 {
+#ifdef TRISTATE_STRICT
+    assert(value1 == false || value1 == true);
+    assert(value2 == false || value2 == true);
+#endif
     return value1 && value2;
 }
 
 TRISTATE_INLINE bool
 TS_or(bool value1, bool value2)
 {
+#ifdef TRISTATE_STRICT
+    assert(value1 == false || value1 == true);
+    assert(value2 == false || value2 == true);
+#endif
     return value1 || value2;
 }
 
 TRISTATE_INLINE bool
 TS_not(bool value)
 {
+#ifdef TRISTATE_STRICT
+    assert(value == false || value == true);
+#endif
     return !value;
 }
 
