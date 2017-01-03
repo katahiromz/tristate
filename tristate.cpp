@@ -668,6 +668,9 @@ int main(void)
     assert((TriState)-1 == TriState::F);
     assert((TriState)1 == TriState::T);
     assert((TriState)0 == TriState::U);
+    assert((bool)TriState::U == false);
+    assert((bool)TriState::F == false);
+    assert((bool)TriState::T == true);
 
     TriState ts;
     assert(ts == TriState::U);
@@ -705,6 +708,54 @@ int main(void)
     assert((!TriState::F) == TriState::T);
     assert((!TriState::T) == TriState::F);
     assert((!TriState::U) == TriState::U);
+
+    assert((TriState::F && TriState::F) < 0);
+    assert((TriState::F && TriState::T) < 0);
+    assert((TriState::F && TriState::U) < 0);
+    assert((TriState::T && TriState::F) < 0);
+    assert((TriState::T && TriState::T) > 0);
+    assert((TriState::T && TriState::U) == 0);
+    assert((TriState::U && TriState::F) < 0);
+    assert((TriState::U && TriState::T) == 0);
+    assert((TriState::U && TriState::U) == 0);
+
+    assert((TriState::F || TriState::F) < 0);
+    assert((TriState::F || TriState::T) > 0);
+    assert((TriState::F || TriState::U) == 0);
+    assert((TriState::T || TriState::F) > 0);
+    assert((TriState::T || TriState::T) > 0);
+    assert((TriState::T || TriState::U) > 0);
+    assert((TriState::U || TriState::F) == 0);
+    assert((TriState::U || TriState::T) > 0);
+    assert((TriState::U || TriState::U) == 0);
+
+    assert((!TriState::F) > 0);
+    assert((!TriState::T) < 0);
+    assert((!TriState::U) == 0);
+
+    assert((TriState::F && TriState::F) == false);
+    assert((TriState::F && TriState::T) == false);
+    assert((TriState::F && TriState::U) == false);
+    assert((TriState::T && TriState::F) == false);
+    assert((TriState::T && TriState::T) == true);
+    assert((TriState::T && TriState::U) == 0);
+    assert((TriState::U && TriState::F) == false);
+    assert((TriState::U && TriState::T) == 0);
+    assert((TriState::U && TriState::U) == 0);
+
+    assert((TriState::F || TriState::F) == false);
+    assert((TriState::F || TriState::T) == true);
+    assert((TriState::F || TriState::U) == 0);
+    assert((TriState::T || TriState::F) == true);
+    assert((TriState::T || TriState::T) == true);
+    assert((TriState::T || TriState::U) == true);
+    assert((TriState::U || TriState::F) == 0);
+    assert((TriState::U || TriState::T) == true);
+    assert((TriState::U || TriState::U) == 0);
+
+    assert((!TriState::F) == true);
+    assert((!TriState::T) == false);
+    assert((!TriState::U) == 0);
 #endif  /* def __cplusplus */
 
     return 0;
