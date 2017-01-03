@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  14     /* Version 14 */
+#define TRISTATE_H_  15     /* Version 15 */
 
 #if (defined(_MSC_VER) && _MSC_VER > 1000)
     #pragma once
@@ -44,8 +44,21 @@ extern "C" {
 
 bool TS_is_valid(TRISTATE value);
 
-TRISTATE    TS_from_bool(bool value);
-void        TS_to_bool(TRISTATE value, bool *flag);
+TRISTATE  TS_from_bool(bool value);
+#ifdef __cplusplus
+    void  TS_to_bool(TRISTATE value, bool *flag, bool *default_value = NULL);
+#else
+    void  TS_to_bool(TRISTATE value, bool *flag, bool *default_value);
+#endif
+
+void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
+#ifdef __cplusplus
+    void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
+                        bool *default_value = NULL);
+#else
+    void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
+                        bool *default_value);
+#endif
 
 #ifdef __cplusplus
     TRISTATE TS_from_str(const char *str, bool *converted = NULL);

@@ -559,6 +559,49 @@ int main(void)
     value = TS_connect_or_tri(3, tri_table);
     assert(value > 0);
 
+    tri_table[0] = TS_TRUE;
+    tri_table[1] = TS_FALSE;
+    tri_table[2] = TS_UNKNOWN;
+    table[2] = false;
+    TS_tri_to_bool(3, tri_table, table, NULL);
+    assert(table[0] == true);
+    assert(table[1] == false);
+    assert(table[2] == false);
+    table[2] = true;
+    TS_tri_to_bool(3, tri_table, table, NULL);
+    assert(table[0] == true);
+    assert(table[1] == false);
+    assert(table[2] == true);
+
+    flag = false;
+    table[2] = true;
+    TS_tri_to_bool(3, tri_table, table, &flag);
+    assert(table[0] == true);
+    assert(table[1] == false);
+    assert(table[2] == false);
+    flag = true;
+    table[2] = true;
+    TS_tri_to_bool(3, tri_table, table, &flag);
+    assert(table[0] == true);
+    assert(table[1] == false);
+    assert(table[2] == true);
+
+    table[0] = true;
+    table[1] = false;
+    table[2] = false;
+    TS_bool_to_tri(3, table, tri_table);
+    assert(tri_table[0] == TS_TRUE);
+    assert(tri_table[1] == TS_FALSE);
+    assert(tri_table[2] == TS_FALSE);
+
+    table[0] = false;
+    table[1] = true;
+    table[2] = true;
+    TS_bool_to_tri(3, table, tri_table);
+    assert(tri_table[0] == TS_FALSE);
+    assert(tri_table[1] == TS_TRUE);
+    assert(tri_table[2] == TS_TRUE);
+
     return 0;
 } /* main */
 #endif  /* def TRISTATE_UNITTEST */

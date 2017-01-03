@@ -32,7 +32,7 @@ TS_from_bool(bool value)
 }
 
 TRISTATE_INLINE void
-TS_to_bool(TRISTATE value, bool *flag)
+TS_to_bool(TRISTATE value, bool *flag, bool *default_value)
 {
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
@@ -46,6 +46,50 @@ TS_to_bool(TRISTATE value, bool *flag)
     {
         assert(flag != NULL);
         *flag = true;
+    }
+    else if (default_value)
+    {
+        assert(flag != NULL);
+        *flag = *default_value;
+    }
+}
+
+TRISTATE_INLINE void
+TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris)
+{
+    assert(bools != NULL || num == 0);
+    assert(tris != NULL || num == 0);
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(*bools == false || *bools == true);
+#endif
+        *tris = TS_from_bool(*bools);
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*tris));
+#endif
+        ++bools;
+        ++tris;
+    }
+}
+
+TRISTATE_INLINE void
+TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
+               bool *default_value)
+{
+    assert(tris != NULL || num == 0);
+    assert(bools != NULL || num == 0);
+    while (num-- > 0)
+    {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*tris));
+#endif
+        TS_to_bool(*tris, bools, default_value);
+#ifdef TRISTATE_STRICT
+        assert(*bools == false || *bools == true);
+#endif
+        ++tris;
+        ++bools;
     }
 }
 
