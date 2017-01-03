@@ -285,6 +285,9 @@ TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values)
     bool are_true = true;
     while (num-- > 0)
     {
+#ifdef TRISTATE_STRICT
+        assert(TS_is_valid(*values));
+#endif
         if (*values < 0)
             are_true = false;
         else if (*values > 0)
