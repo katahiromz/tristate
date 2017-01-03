@@ -46,8 +46,8 @@ bool TS_is_valid_bool(bool value);
 bool TS_is_valid_tri(TRISTATE value);
 
 TRISTATE  TS_from_bool(bool value);
-void  TS_to_bool(TRISTATE value, bool *flag);
-void  TS_to_bool_def(TRISTATE value, bool *flag, bool default_value);
+void      TS_to_bool(TRISTATE value, bool *flag);
+void      TS_to_bool_def(TRISTATE value, bool *flag, bool default_value);
 
 void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
 void TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools);
@@ -55,7 +55,7 @@ void TS_tri_to_bool_def(size_t num, const TRISTATE *tris, bool *bools,
                         bool default_value);
 
 TRISTATE TS_from_int(int value);
-int TS_to_int(TRISTATE value);
+int      TS_to_int(TRISTATE value);
 
 #ifdef __cplusplus
     TRISTATE TS_from_str(const char *str, bool *converted = NULL);
