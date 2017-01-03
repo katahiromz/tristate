@@ -246,33 +246,11 @@ TS_set_tri_totality(TRISTATE value, size_t num, bool *values)
     assert(values != NULL);
     if (value < 0)
     {
-        if (sizeof(bool) == 1)
-        {
-            memset(values, false, num * sizeof(bool));
-        }
-        else
-        {
-            while (num-- > 0)
-            {
-                *values = false;
-                ++values;
-            }
-        }
+        TS_set_totality(false, num, values);
     }
     else if (value > 0)
     {
-        if (sizeof(bool) == 1)
-        {
-            memset(values, true, num * sizeof(bool));
-        }
-        else
-        {
-            while (num-- > 0)
-            {
-                *values = true;
-                ++values;
-            }
-        }
+        TS_set_totality(true, num, values);
     }
 }
 
