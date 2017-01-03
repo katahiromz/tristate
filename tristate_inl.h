@@ -4,6 +4,10 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 
+#ifndef TRISTATE_H_
+    #error You should #include "tristate.h". You lose.
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
