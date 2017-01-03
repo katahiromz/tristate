@@ -190,7 +190,7 @@ TS_set_totality(bool value, size_t num, bool *values)
     using namespace std;
 #endif
     assert(values != NULL || num == 0);
-    if (sizeof(bool) == 1)
+    if (sizeof(bool) == 1 || !value)
     {
         memset(values, value, num * sizeof(bool));
     }
