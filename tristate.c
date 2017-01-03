@@ -22,11 +22,15 @@ int main(void)
 #ifdef __cplusplus
     using namespace std;
 #endif
-    bool converted;
+    bool converted, flag;
+    TRISTATE value;
     TRISTATE array[3] = { TS_TRUE, TS_FALSE };
     bool unknown_table[3] = { true, false, true };
     bool false_table[3] = { false, false, false };
     bool true_table[3] = { true, true, true };
+    TRISTATE tri_unknown_table[3] = { TS_TRUE, TS_FALSE, TS_TRUE };
+    TRISTATE tri_false_table[3] = { TS_FALSE, TS_FALSE, TS_FALSE };
+    TRISTATE tri_true_table[3] = { TS_TRUE, TS_TRUE, TS_TRUE };
 
     assert(TS_from_str("true", NULL) == TS_TRUE);
     assert(TS_from_str("false", NULL) == TS_FALSE);
@@ -96,16 +100,145 @@ int main(void)
     assert(TS_FALSE < TS_UNKNOWN);
     assert(TS_UNKNOWN == TS_UNKNOWN);
 
-    assert(TS_get_totality(3, unknown_table) == TS_UNKNOWN);
-    assert(TS_get_totality(3, false_table) == TS_FALSE);
-    assert(TS_get_totality(3, true_table) == TS_TRUE);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
 
-    TS_set_totality(3, unknown_table, TS_TRUE);
-    assert(TS_get_totality(3, unknown_table) == TS_TRUE);
-    TS_set_totality(3, unknown_table, TS_FALSE);
-    assert(TS_get_totality(3, unknown_table) == TS_FALSE);
-    TS_set_totality(3, unknown_table, TS_UNKNOWN);
-    assert(TS_get_totality(3, unknown_table) == TS_FALSE);
+    flag = false;
+    TS_get_totality(&flag, 3, false_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality(&flag, 3, false_table);
+    assert(!flag);
+
+    flag = false;
+    TS_get_totality(&flag, 3, true_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality(&flag, 3, true_table);
+    assert(flag);
+
+    TS_get_tri_totality(&value, 3, unknown_table);
+    assert(value == TS_UNKNOWN);
+    TS_get_tri_totality(&value, 3, false_table);
+    assert(value == TS_FALSE);
+    TS_get_tri_totality(&value, 3, true_table);
+    assert(value == TS_TRUE);
+
+    flag = false;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(flag);
+    TS_get_totality_tri(&flag, 3, tri_false_table);
+    assert(!flag);
+    TS_get_totality_tri(&flag, 3, tri_true_table);
+    assert(flag);
+
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+    TS_get_tri_totality_tri(&value, 3, tri_false_table);
+    assert(value == TS_FALSE);
+    TS_get_tri_totality_tri(&value, 3, tri_true_table);
+    assert(value == TS_TRUE);
+
+    flag = false;
+    TS_set_totality(flag, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+
+    flag = true;
+    TS_set_totality(flag, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+
+    value = TS_UNKNOWN;
+    TS_set_tri_totality(value, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+
+    value = TS_FALSE;
+    TS_set_tri_totality(value, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(!flag);
+
+    value = TS_TRUE;
+    TS_set_tri_totality(value, 3, unknown_table);
+    flag = false;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality(&flag, 3, unknown_table);
+    assert(flag);
+
+    TS_set_totality_tri(false, 3, tri_unknown_table);
+    flag = false;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(!flag);
+    flag = true;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(!flag);
+
+    TS_set_totality_tri(true, 3, tri_unknown_table);
+    flag = false;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(flag);
+    flag = true;
+    TS_get_totality_tri(&flag, 3, tri_unknown_table);
+    assert(flag);
+
+    TS_set_tri_totality_tri(TS_UNKNOWN, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_UNKNOWN);
+
+    TS_set_tri_totality_tri(TS_FALSE, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_FALSE);
+
+    TS_set_tri_totality_tri(TS_TRUE, 3, tri_unknown_table);
+    value = TS_UNKNOWN;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_FALSE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
+    value = TS_TRUE;
+    TS_get_tri_totality_tri(&value, 3, tri_unknown_table);
+    assert(value == TS_TRUE);
 
     return 0;
 } /* main */

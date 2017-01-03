@@ -166,9 +166,42 @@ TS_not(TRISTATE value)
     return (TRISTATE)-(int)value;
 }
 
-TRISTATE_INLINE TRISTATE
-TS_get_totality(size_t count, const bool *values)
+TRISTATE_INLINE void
+TS_get_totality(bool *value, size_t count, const bool *values)
 {
+    TRISTATE state;
+    TS_get_tri_totality(&state, count, values);
+    if (state < 0)
+        *value = false;
+    if (state > 0)
+        *value = true;
+}
+TRISTATE_INLINE void
+TS_set_totality(bool value, size_t count, bool *values)
+{
+#ifdef __cplusplus
+    using namespace std;
+#endif
+    assert(values != NULL);
+    if (sizeof(bool) == 1)
+    {
+        memset(values, value, count * sizeof(bool));
+    }
+    else
+    {
+        while (count-- > 0)
+        {
+            *values = value;
+            ++values;
+        }
+    }
+}
+
+TRISTATE_INLINE void
+TS_get_tri_totality(TRISTATE *value, size_t count, const bool *values)
+{
+    assert(value != NULL);
+    assert(values != NULL);
     bool are_true = true;
     bool are_false = true;
     while (count-- > 0)
@@ -180,18 +213,20 @@ TS_get_totality(size_t count, const bool *values)
         ++values;
     }
     if (are_false == are_true)
-        return TS_UNKNOWN;
-    if (are_true)
-        return TS_TRUE;
-    return TS_FALSE;
+        *value = TS_UNKNOWN;
+    else if (are_true)
+        *value = TS_TRUE;
+    else
+        *value = TS_FALSE;
 }
 
 TRISTATE_INLINE void
-TS_set_totality(size_t count, bool *values, TRISTATE value)
+TS_set_tri_totality(TRISTATE value, size_t count, bool *values)
 {
 #ifdef __cplusplus
     using namespace std;
 #endif
+    assert(values != NULL);
     if (value < 0)
     {
         if (sizeof(bool) == 1)
@@ -221,6 +256,76 @@ TS_set_totality(size_t count, bool *values, TRISTATE value)
                 ++values;
             }
         }
+    }
+}
+
+TRISTATE_INLINE void
+TS_get_totality_tri(bool *value, size_t count, const TRISTATE *values)
+{
+    assert(value != NULL);
+    assert(values != NULL);
+    bool are_true = true;
+    bool are_false = true;
+    while (count-- > 0)
+    {
+        if (*values == TS_TRUE)
+            are_false = false;
+        else if (*values == TS_FALSE)
+            are_true = false;
+        ++values;
+    }
+    if (are_false == are_true)
+        ;
+    else if (are_true)
+        *value = true;
+    else if (are_false)
+        *value = false;
+}
+
+TRISTATE_INLINE void
+TS_set_totality_tri(bool value, size_t count, TRISTATE *values)
+{
+    assert(values != NULL);
+    const TRISTATE state = TS_from_bool(value);
+    while (count-- > 0)
+    {
+        *values = state;
+        ++values;
+    }
+}
+
+TRISTATE_INLINE void
+TS_get_tri_totality_tri(TRISTATE *value, size_t count, const TRISTATE *values)
+{
+    assert(value != NULL);
+    assert(values != NULL);
+    bool are_true = true;
+    bool are_false = true;
+    while (count-- > 0)
+    {
+        if (*values == TS_TRUE)
+            are_false = false;
+        else if (*values == TS_FALSE)
+            are_true = false;
+        ++values;
+    }
+    if (are_false == are_true)
+        *value = TS_UNKNOWN;
+    else if (are_true)
+        *value = TS_TRUE;
+    else if (are_false)
+        *value = TS_FALSE;
+    else
+        *value = TS_UNKNOWN;
+}
+
+TRISTATE_INLINE void
+TS_set_tri_totality_tri(TRISTATE value, size_t count, TRISTATE *values)
+{
+    while (count-- > 0)
+    {
+        *values = value;
+        ++values;
     }
 }
 
