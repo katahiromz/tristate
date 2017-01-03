@@ -32,7 +32,7 @@ TS_from_bool(bool value)
 }
 
 TRISTATE_INLINE void
-TS_to_bool(TRISTATE value, bool *flag, bool *default_value)
+TS_to_bool(TRISTATE value, bool *flag, bool *default_value/* = NULL*/)
 {
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
@@ -75,7 +75,7 @@ TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris)
 
 TRISTATE_INLINE void
 TS_tri_to_bool(size_t num, const TRISTATE *tris, bool *bools,
-               bool *default_value)
+               bool *default_value/* = NULL*/)
 {
     assert(tris != NULL || num == 0);
     assert(bools != NULL || num == 0);
