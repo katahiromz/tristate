@@ -71,9 +71,9 @@ void TS_bool_to_tri(size_t num, const bool *bools, TRISTATE *tris);
 const char *        TS_to_str(TRISTATE value);
 const wchar_t *     TS_to_wstr(TRISTATE value);
 
-TRISTATE TS_and(TRISTATE value1, TRISTATE value2);
-TRISTATE TS_or (TRISTATE value1, TRISTATE value2);
-TRISTATE TS_not(TRISTATE value);
+TRISTATE TS_tri_and(TRISTATE value1, TRISTATE value2);
+TRISTATE TS_tri_or (TRISTATE value1, TRISTATE value2);
+TRISTATE TS_tri_not(TRISTATE value);
 
 #if defined(UNICODE) || defined(_UNICODE)
     #define TS_from_tstr    TS_from_wstr

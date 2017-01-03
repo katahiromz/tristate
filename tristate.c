@@ -62,33 +62,33 @@ int main(void)
     assert(wcscmp(TS_to_wstr(TS_FALSE), L"false") == 0);
     assert(wcscmp(TS_to_wstr(TS_UNKNOWN), L"unknown") == 0);
 
-    assert(TS_and(TS_TRUE, TS_TRUE) == TS_TRUE);
-    assert(TS_and(TS_TRUE, TS_FALSE) == TS_FALSE);
-    assert(TS_and(TS_TRUE, TS_UNKNOWN) == TS_UNKNOWN);
+    assert(TS_tri_and(TS_TRUE, TS_TRUE) == TS_TRUE);
+    assert(TS_tri_and(TS_TRUE, TS_FALSE) == TS_FALSE);
+    assert(TS_tri_and(TS_TRUE, TS_UNKNOWN) == TS_UNKNOWN);
 
-    assert(TS_and(TS_FALSE, TS_TRUE) == TS_FALSE);
-    assert(TS_and(TS_FALSE, TS_FALSE) == TS_FALSE);
-    assert(TS_and(TS_FALSE, TS_UNKNOWN) == TS_FALSE);
+    assert(TS_tri_and(TS_FALSE, TS_TRUE) == TS_FALSE);
+    assert(TS_tri_and(TS_FALSE, TS_FALSE) == TS_FALSE);
+    assert(TS_tri_and(TS_FALSE, TS_UNKNOWN) == TS_FALSE);
 
-    assert(TS_and(TS_UNKNOWN, TS_TRUE) == TS_UNKNOWN);
-    assert(TS_and(TS_UNKNOWN, TS_FALSE) == TS_FALSE);
-    assert(TS_and(TS_UNKNOWN, TS_UNKNOWN) == TS_UNKNOWN);
+    assert(TS_tri_and(TS_UNKNOWN, TS_TRUE) == TS_UNKNOWN);
+    assert(TS_tri_and(TS_UNKNOWN, TS_FALSE) == TS_FALSE);
+    assert(TS_tri_and(TS_UNKNOWN, TS_UNKNOWN) == TS_UNKNOWN);
 
-    assert(TS_or(TS_TRUE, TS_TRUE) == TS_TRUE);
-    assert(TS_or(TS_TRUE, TS_FALSE) == TS_TRUE);
-    assert(TS_or(TS_TRUE, TS_UNKNOWN) == TS_TRUE);
+    assert(TS_tri_or(TS_TRUE, TS_TRUE) == TS_TRUE);
+    assert(TS_tri_or(TS_TRUE, TS_FALSE) == TS_TRUE);
+    assert(TS_tri_or(TS_TRUE, TS_UNKNOWN) == TS_TRUE);
 
-    assert(TS_or(TS_FALSE, TS_TRUE) == TS_TRUE);
-    assert(TS_or(TS_FALSE, TS_FALSE) == TS_FALSE);
-    assert(TS_or(TS_FALSE, TS_UNKNOWN) == TS_UNKNOWN);
+    assert(TS_tri_or(TS_FALSE, TS_TRUE) == TS_TRUE);
+    assert(TS_tri_or(TS_FALSE, TS_FALSE) == TS_FALSE);
+    assert(TS_tri_or(TS_FALSE, TS_UNKNOWN) == TS_UNKNOWN);
 
-    assert(TS_or(TS_UNKNOWN, TS_TRUE) == TS_TRUE);
-    assert(TS_or(TS_UNKNOWN, TS_FALSE) == TS_UNKNOWN);
-    assert(TS_or(TS_UNKNOWN, TS_UNKNOWN) == TS_UNKNOWN);
+    assert(TS_tri_or(TS_UNKNOWN, TS_TRUE) == TS_TRUE);
+    assert(TS_tri_or(TS_UNKNOWN, TS_FALSE) == TS_UNKNOWN);
+    assert(TS_tri_or(TS_UNKNOWN, TS_UNKNOWN) == TS_UNKNOWN);
 
-    assert(TS_not(TS_UNKNOWN) == TS_UNKNOWN);
-    assert(TS_not(TS_TRUE) == TS_FALSE);
-    assert(TS_not(TS_FALSE) == TS_TRUE);
+    assert(TS_tri_not(TS_UNKNOWN) == TS_UNKNOWN);
+    assert(TS_tri_not(TS_TRUE) == TS_FALSE);
+    assert(TS_tri_not(TS_FALSE) == TS_TRUE);
 
     assert(array[0] == TS_TRUE);
     assert(array[1] == TS_FALSE);

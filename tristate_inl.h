@@ -178,7 +178,7 @@ TS_to_wstr(TRISTATE value)
 }
 
 TRISTATE_INLINE TRISTATE
-TS_and(TRISTATE value1, TRISTATE value2)
+TS_tri_and(TRISTATE value1, TRISTATE value2)
 {
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value1));
@@ -192,7 +192,7 @@ TS_and(TRISTATE value1, TRISTATE value2)
 }
 
 TRISTATE_INLINE TRISTATE
-TS_or(TRISTATE value1, TRISTATE value2)
+TS_tri_or(TRISTATE value1, TRISTATE value2)
 {
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value1));
@@ -206,7 +206,7 @@ TS_or(TRISTATE value1, TRISTATE value2)
 }
 
 TRISTATE_INLINE TRISTATE
-TS_not(TRISTATE value)
+TS_tri_not(TRISTATE value)
 {
 #ifdef TRISTATE_STRICT
     assert(TS_is_valid(value));
@@ -487,7 +487,7 @@ TS_tri_each_and_tri(TRISTATE value, size_t num, TRISTATE *values)
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
-        *values = TS_and(*values, value);
+        *values = TS_tri_and(*values, value);
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
@@ -516,7 +516,7 @@ TS_tri_each_or_tri(TRISTATE value, size_t num, TRISTATE *values)
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
-        *values = TS_or(*values, value);
+        *values = TS_tri_or(*values, value);
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
@@ -533,7 +533,7 @@ TS_each_not_tri(size_t num, TRISTATE *values)
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
-        *values = TS_not(*values);
+        *values = TS_tri_not(*values);
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
@@ -584,7 +584,7 @@ TS_connect_and_tri(size_t num, const TRISTATE *values)
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
-        value = TS_and(value, *values);
+        value = TS_tri_and(value, *values);
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(value));
 #endif
@@ -604,7 +604,7 @@ TS_connect_or_tri(size_t num, const TRISTATE *values)
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(*values));
 #endif
-        value = TS_or(value, *values);
+        value = TS_tri_or(value, *values);
 #ifdef TRISTATE_STRICT
         assert(TS_is_valid(value));
 #endif
