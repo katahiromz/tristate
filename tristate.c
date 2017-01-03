@@ -24,15 +24,15 @@ int main(void)
 #endif
     bool converted, flag;
     TRISTATE value;
-    TRISTATE array[3] = { TS_TRUE, TS_FALSE };
+    bool table[3];
     const bool unknown_table[3] = { true, false, true };
     const bool false_table[3] = { false, false, false };
     const bool true_table[3] = { true, true, true };
+    TRISTATE tri_table[3];
     const TRISTATE tri_unknown_table[3] = { TS_TRUE, TS_FALSE, TS_UNKNOWN };
     const TRISTATE tri_false_table[3] = { TS_FALSE, TS_FALSE, TS_FALSE };
     const TRISTATE tri_true_table[3] = { TS_TRUE, TS_TRUE, TS_TRUE };
-    bool table[3];
-    TRISTATE tri_table[3];
+    const TRISTATE array[3] = { TS_TRUE, TS_FALSE };
 
     assert(TS_from_str("true", NULL) == TS_TRUE);
     assert(TS_from_str("false", NULL) == TS_FALSE);
