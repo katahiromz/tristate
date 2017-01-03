@@ -365,9 +365,9 @@ TRISTATE TS_connect_or_tri (size_t num, const TRISTATE *values);
         TRISTATE m_value;
     }; // class TriS
 
-    /*static*/ const TriS TriS::T(TS_TRUE);
-    /*static*/ const TriS TriS::F(TS_FALSE);
-    /*static*/ const TriS TriS::U(TS_UNKNOWN);
+    /*static*/ const TriS   TriS::T(TS_TRUE);
+    /*static*/ const TriS   TriS::F(TS_FALSE);
+    /*static*/ const TriS   TriS::U(TS_UNKNOWN);
 #endif  /* def __cplusplus */
 
 /****************************************************************************/
