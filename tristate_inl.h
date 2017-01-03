@@ -178,6 +178,7 @@ TS_get_totality(bool *value, size_t count, const bool *values)
     if (state > 0)
         *value = true;
 }
+
 TRISTATE_INLINE void
 TS_set_totality(bool value, size_t count, bool *values)
 {
@@ -326,13 +327,13 @@ TS_get_tri_totality_tri(TRISTATE *value, size_t count, const TRISTATE *values)
 TRISTATE_INLINE void
 TS_set_tri_totality_tri(TRISTATE value, size_t count, TRISTATE *values)
 {
-    if (value != TS_UNKNOWN)
-    {
-        TS_reset_tri_totality_tri(value, count, values);
-    }
+    if (value == TS_UNKNOWN)
+        return;
+
+    TS_reset_tri_totality_tri(value, count, values);
 }
 
-void
+TRISTATE_INLINE void
 TS_reset_tri_totality_tri(TRISTATE value, size_t count, TRISTATE *values)
 {
     assert(values != NULL);

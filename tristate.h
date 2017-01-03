@@ -3,7 +3,7 @@
  * Copyright (C) 2017 Katayama Hirofumi MZ.
  */
 #ifndef TRISTATE_H_
-#define TRISTATE_H_  5 /* Version 5 */
+#define TRISTATE_H_  6 /* Version 6 */
 
 /****************************************************************************/
 
@@ -73,6 +73,7 @@ void TS_set_tri_totality(TRISTATE  value, size_t count,       bool *values);
 
 void TS_get_totality_tri(bool *value, size_t count, const TRISTATE *values);
 void TS_set_totality_tri(bool  value, size_t count,       TRISTATE *values);
+#define TS_reset_totality_tri TS_set_totality_tri
 
 void
 TS_get_tri_totality_tri(TRISTATE *value,  size_t count, const TRISTATE *values);
