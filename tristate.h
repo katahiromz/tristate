@@ -70,22 +70,22 @@ TRISTATE TS_not(TRISTATE value);
     #define TS_to_tstr      TS_to_str
 #endif
 
-void TS_get_totality(bool *value, size_t count, const bool *values);
-void TS_set_totality(bool  value, size_t count,       bool *values);
+void TS_get_totality(bool *value, size_t num, const bool *values);
+void TS_set_totality(bool  value, size_t num,       bool *values);
 
-void TS_get_tri_totality(TRISTATE *value, size_t count, const bool *values);
-void TS_set_tri_totality(TRISTATE  value, size_t count,       bool *values);
+void TS_get_tri_totality(TRISTATE *value, size_t num, const bool *values);
+void TS_set_tri_totality(TRISTATE  value, size_t num,       bool *values);
 
-void TS_get_totality_tri(bool *value, size_t count, const TRISTATE *values);
-void TS_set_totality_tri(bool  value, size_t count,       TRISTATE *values);
+void TS_get_totality_tri(bool *value, size_t num, const TRISTATE *values);
+void TS_set_totality_tri(bool  value, size_t num,       TRISTATE *values);
 #define TS_reset_totality_tri TS_set_totality_tri
 
 void
-TS_get_tri_totality_tri(TRISTATE * value, size_t count, const TRISTATE *values);
+TS_get_tri_totality_tri(TRISTATE * value, size_t num, const TRISTATE *values);
 void
-TS_set_tri_totality_tri(TRISTATE   value, size_t count,       TRISTATE *values);
+TS_set_tri_totality_tri(TRISTATE   value, size_t num,       TRISTATE *values);
 void
-TS_reset_tri_totality_tri(TRISTATE value, size_t count,       TRISTATE *values);
+TS_reset_tri_totality_tri(TRISTATE value, size_t num,       TRISTATE *values);
 
 #ifdef __cplusplus
 } // extern "C"
