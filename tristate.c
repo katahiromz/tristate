@@ -92,8 +92,8 @@ int main(void)
     assert(array[1] == TS_FALSE);
     assert(array[2] == TS_UNKNOWN);
 
-    assert(TS_TRUE > 0);
-    assert(TS_FALSE < 0);
+    assert(TS_TRUE > 0);        /* positive */
+    assert(TS_FALSE < 0);       /* negative */
     assert(TS_UNKNOWN == 0);
 
     assert(TS_TRUE > TS_UNKNOWN);
